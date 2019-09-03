@@ -4,5 +4,21 @@
 
 <script>
     io('/socket.io');
+
+    const socket = io.connect('ws://localhost:3000');
+
+    socket.on('news', function (data) {
+        console.log(data);
+        for (var i = 0; i < 100; i++) {
+            socket.emit('my other event', {my: 'data'});
+
+        }
+    });
+
+    $(document).mousemove(function (event) {
+        msg = {x: event.pageX, y: event.pageY};
+        console.log(msg);
+        socket.emit('mouse', msg);
+    });
 </script>
 
